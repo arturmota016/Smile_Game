@@ -30,7 +30,7 @@ function jogarNovamente() {
   //percorremos todas as divs armazenadas
   for (i = 0; i < divis.length; i++) {
     //verificamos se sao as divs com ids 0 ou 1 ou 2
-    if (divis[i].id == 0 || divis[i].id == 1 || divis[i].id == 2 || divis[i].id == 3 || divis[i].id == 4) {
+    if (["0", "1", "2", "3", "4"].includes(divis[i].id)) {
       //alteramos a classe css das divs 0, 1 e 2 (className)
       divis[i].className = "inicial";
     }
@@ -59,18 +59,20 @@ function atualizaPlacar(acertos, tentativas) {
   document.getElementById("resposta").innerHTML = "Placar - Acertos: " + acertos + " Tentativas: " + tentativas + " Desempenho: " + Math.round(desempenho) + "%";
 
 }
+function criarImagem(id, src) {
+  const img = new Image(100);
+  img.id = id;
+  img.src = src;
+  return img;
+}
 
 //funçao executada quando o jogador acertou
 function acertou(obj) {
   //altera a classe CSS da <div> escolhida pelo jogador (className)
   obj.className = "acertou";
   //Criar uma constante img que armazena um novo objeto imagem com largura de 100px
-  const img = new Image(100);
-  img.id = "imagem";
-  //altera o atributo src (source) da imagem criada
-  img.src = "https://upload.wikimedia.org/wikipedia/commons/2/2e/Oxygen480-emotes-face-smile-big.svg";
-  //adiciona a imagem criada na div (obj) escolhida pelo jogador (appendChild)
-  obj.appendChild(img);
+  const img = criarImagem("imagem", "https://upload.wikimedia.org/wikipedia/commons/2/2e/Oxygen480-emotes-face-smile-big.svg");
+obj.appendChild(img);
 }
 
 //Função que sorteia um número aleatório entre 0 e 2 e verifica se o jogador acertou
@@ -107,11 +109,7 @@ function verifica(obj) {
       const objSorteado = document.getElementById(sorteado);
       //chama a funçao acertou para mostrar a div aonde está o Smile
       acertou(objSorteado);
-      const img2 = new Image(100);
-      img2.id = "imagem2";
-      //altera o atributo src (source) da imagem criada
-      img2.src = "https://images.vexels.com/media/users/3/134551/isolated/preview/1fb74455a668b00b9ec2ab7d3092008b-emoticon-emoji-triste.png";
-      //adiciona a imagem criada na div (obj) escolhida pelo jogador (appendChild)
+      const img2 = criarImagem("imagem2", "https://images.vexels.com/media/users/3/134551/isolated/preview/1fb74455a668b00b9ec2ab7d3092008b-emoticon-emoji-triste.png");
       obj.appendChild(img2);
       document.getElementById("somErro").play();
     }
